@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>{{ page.title }} | {{ site.title }}</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    {% seo %}
+    <meta charset="UTF-8">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
   </head>
+
   <body>
-    {% include header.html %}
-    <div class="wrapper">
-      <div class="content">
+
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <main>
         {{ content }}
-      </div>
+      </main>
+
       {% include sidebar.html %}
     </div>
-    {% include footer.html %}
+
+    <footer>
+      © {{ site.time | date: "%Y" }} Subluxe — Built with Jekyll
+    </footer>
+
   </body>
 </html>
