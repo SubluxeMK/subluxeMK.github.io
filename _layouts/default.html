@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {% seo %}
+  </head>
+  <body>
+    {% include header.html %}
+    <div class="wrapper">
+      <div class="content">
+        {{ content }}
+      </div>
+      {% include sidebar.html %}
+    </div>
+    {% include footer.html %}
+  </body>
+</html>
