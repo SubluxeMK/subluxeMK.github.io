@@ -1,7 +1,7 @@
 title: "My Blog"
 description: "A simple monochrome Jekyll blog"
 baseurl: ""
-url: "https://YOUR-USERNAME.github.io"
+url: ""
 
 markdown: kramdown
 theme: null
@@ -10,7 +10,6 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-# Navigation links
 nav:
   - name: "Home"
     link: "/"
@@ -19,7 +18,6 @@ nav:
   - name: "About"
     link: "/about"
 
-# Giscus (you can replace later)
 giscus:
   repo: ""
   repo_id: ""
