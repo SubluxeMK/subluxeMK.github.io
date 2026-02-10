@@ -2,13 +2,28 @@
 layout: default
 ---
 
-<h1 class="post-title">{{ page.title }}</h1>
-<p><small>{{ page.date | date: "%B %d, %Y" }}</small></p>
+<div class="card post-content">
+  <h1>{{ page.title }}</h1>
+  <p><em>{{ page.date | date: "%B %d, %Y" }}</em></p>
 
-<div>
   {{ content }}
 </div>
 
-<hr>
-
-{% include comments.html %}
+<!-- Giscus Comments -->
+<div class="card">
+  <script src="https://giscus.app/client.js"
+        data-repo="SubluxeMK/subluxemk.github.io"
+        data-repo-id=""
+        data-category="General"
+        data-category-id=""
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+  </script>
+</div>
