@@ -9,6 +9,14 @@ body {
   line-height: 1.6;
 }
 
+.profile-image {
+    width: 180px;      /* adjust 150–200px if needed */
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto 1rem auto;
+}
+
 a {
   color: #000;
   text-decoration: underline;
