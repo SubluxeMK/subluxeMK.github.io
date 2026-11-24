@@ -4,7 +4,6 @@ Personal site, hosted on GitHub Pages (Jekyll).
 
 - **Profile text** (name line, likes/dislikes, currently, etc.) lives in one
   file: `_data/profile.yml` — edit that and the landing page updates.
-- **About page:** `about.md`
 - **Photos:** drop image files into `assets/img/photos/` and they appear on
   the Photos page automatically. The first three also show as "picks" on the
   landing page.
