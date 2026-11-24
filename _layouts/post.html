@@ -2,28 +2,19 @@
 layout: default
 ---
 
-<div class="card post-content">
-  <h1>{{ page.title }}</h1>
-  <p><em>{{ page.date | date: "%B %d, %Y" }}</em></p>
+<article class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+  {% assign words = content | strip_html | number_of_words %}
+  {% assign minutes = words | divided_by: 200 %}
+  {% if minutes < 1 %}{% assign minutes = 1 %}{% endif %}
+  <p class="byline byline--post">
+    <img class="byline-avatar" src="{{ site.author.avatar | relative_url }}" alt="">
+    <span>Justin Mackey · {{ page.date | date: "%B %-d, %Y" }} · {{ minutes }} min read</span>
+  </p>
 
-  {{ content }}
-</div>
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>
 
-<!-- Giscus Comments -->
-<div class="card">
-  <script src="https://giscus.app/client.js"
-        data-repo="SubluxeMK/subluxemk.github.io"
-        data-repo-id=""
-        data-category="General"
-        data-category-id=""
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="light"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
-  </script>
-</div>
+{% include comments.html %}

@@ -2,13 +2,33 @@
 layout: default
 ---
 
-<h1>Latest Posts</h1>
+<h1 class="feed-title">Latest</h1>
 
-<ul>
+{% if site.posts.size > 0 %}
+<div class="feed">
   {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a><br>
-      <small>{{ post.date | date: "%B %d, %Y" }}</small>
-    </li>
+    {% assign words = post.content | strip_html | number_of_words %}
+    {% assign minutes = words | divided_by: 200 %}
+    {% if minutes < 1 %}{% assign minutes = 1 %}{% endif %}
+    <article class="story" data-title="{{ post.title | downcase | escape }}" data-text="{{ post.excerpt | strip_html | downcase | escape }}">
+      <p class="byline">
+        <img class="byline-avatar" src="{{ site.author.avatar | relative_url }}" alt="">
+        <span>Justin Mackey · {{ post.date | date: "%b %-d, %Y" }} · {{ minutes }} min read</span>
+      </p>
+      <h2 class="story-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p class="story-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+      {% if post.tags and post.tags.size > 0 %}
+      <p class="story-tags">
+        {% for tag in post.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
+      </p>
+      {% endif %}
+    </article>
   {% endfor %}
-</ul>
+</div>
+<p class="no-results" hidden>No stories match your search.</p>
+{% else %}
+<div class="empty-state">
+  <h2>No stories yet</h2>
+  <p>Nothing published here yet — new writing is on its way.</p>
+</div>
+{% endif %}

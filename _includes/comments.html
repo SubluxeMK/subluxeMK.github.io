@@ -1,26 +1,26 @@
-{% if site.giscus.repo %}
-<script src="https://giscus.app/client.js"
-        data-repo="{{ site.giscus.repo }}"
-        data-repo-id="{{ site.giscus.repo_id }}"
-        data-category="{{ site.giscus.category }}"
-        data-category-id="{{ site.giscus.category_id }}"
-        data-mapping="pathname"
-        data-theme="light"
-        crossorigin="anonymous"
-        async>
-</script>
-{% elsif site.disqus_shortname %}
-<div id="disqus_thread"></div>
-<script>
-var disqus_config = function () {
-  this.page.url = "{{ page.url | absolute_url }}";
-  this.page.identifier = "{{ page.url }}";
-};
-(function() {
-  var d = document, s = d.createElement('script');
-  s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-})();
-</script>
+{% comment %}
+  Giscus comments. Renders only when real repo_id and category_id values are
+  present in _config.yml, so the site never shows a broken widget.
+  Setup: enable Discussions on the repo, install the giscus GitHub App,
+  generate the IDs at https://giscus.app and paste them into _config.yml.
+{% endcomment %}
+{% if site.giscus.repo_id and site.giscus.category_id %}
+<section class="comments" aria-label="Comments">
+  <h2 class="comments-title">Comments</h2>
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.giscus.repo }}"
+          data-repo-id="{{ site.giscus.repo_id }}"
+          data-category="{{ site.giscus.category }}"
+          data-category-id="{{ site.giscus.category_id }}"
+          data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+          data-strict="0"
+          data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="{{ site.giscus.theme | default: 'light' }}"
+          data-lang="en"
+          crossorigin="anonymous"
+          async>
+  </script>
+</section>
 {% endif %}

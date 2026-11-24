@@ -1,7 +1,10 @@
-title: "My Blog"
-description: "A simple monochrome Jekyll blog"
+title: "Subluxe"
+description: "Subluxe is Justin Mackey's personal writing and blog site — essays and notes on everyday life, ideas, and whatever's on his mind."
 baseurl: ""
-url: ""
+url: "https://subluxe.ca"
+author:
+  name: "Justin Mackey"
+  avatar: "/assets/images/muse-artwork.jpg"
 
 markdown: kramdown
 theme: null
@@ -18,8 +21,15 @@ nav:
   - name: "About"
     link: "/about"
 
+# Comments via giscus (https://giscus.app). The widget only renders on posts
+# once repo_id and category_id are filled in. To finish setup: enable
+# Discussions on the repo, install the giscus GitHub App, then generate the
+# values at giscus.app and paste them below.
 giscus:
-  repo: ""
+  repo: "SubluxeMK/subluxeMK.github.io"
   repo_id: ""
-  category: ""
+  category: "General"
   category_id: ""
+  mapping: "pathname"
+  reactions_enabled: "1"
+  theme: "light"
