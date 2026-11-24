@@ -34,12 +34,11 @@ box_2_title: "note !!"
 box_2: "How did you end up here?"
 
 # About section — shown directly on the landing page.
-about_text: |-
-  Hello I'm Subluxe, I'm a mechanical keyboard enthusiast and former event organizer, originally from Vancouver but I'm based in Nagoya now.
-
-  I'm into various MMOs but I mainly play OSRS, MapleStory and Classic Maple.
-
-  I also do a bit of writing on the side, and have written for some small projects.
+# (One list item per paragraph.)
+about_text:
+  - "Hello I'm Subluxe, I'm a mechanical keyboard enthusiast and former event organizer, originally from Vancouver but I'm based in Nagoya now."
+  - "I'm into various MMOs but I mainly play OSRS, MapleStory and Classic Maple."
+  - "I also do a bit of writing on the side, and have written for some small projects."
 basics:
   - label: "name / what to call me"
     value: "Subluxe"

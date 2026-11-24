@@ -20,7 +20,7 @@ layout: default
     {% if p.line_2 %}<p class="profile-line">{{ p.line_2 }}</p>{% endif %}
     <div class="profile-about" id="about">
       <h2 class="profile-about-title">About</h2>
-      <div class="about-text">{{ p.about_text | markdownify }}</div>
+      {% for para in p.about_text %}<p class="about-text">{{ para }}</p>{% endfor %}
       <p class="about-site">This is my personal site — a place for my pictures, a little about me, and occasionally some writing. The writing lives in its own small section <a href="{{ '/blog/' | relative_url }}">here</a>, and my photos are <a href="{{ '/photos/' | relative_url }}">here</a>.</p>
     </div>
   </div>
