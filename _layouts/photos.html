@@ -7,13 +7,20 @@ layout: default
   <p class="section-intro">Pictures I've taken and things I like looking at.</p>
 
   {% assign photos = site.static_files | where_exp: "f", "f.path contains '/assets/img/photos/'" %}
-  {% assign image_photos = photos | where_exp: "f", "f.extname == '.jpg' or f.extname == '.jpeg' or f.extname == '.png' or f.extname == '.gif' or f.extname == '.webp'" %}
-  {% if image_photos.size > 0 %}
+  {% assign count = 0 %}
+  {% for photo in photos %}
+    {% if photo.extname == '.jpg' or photo.extname == '.jpeg' or photo.extname == '.png' or photo.extname == '.gif' or photo.extname == '.webp' %}
+      {% assign count = count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% if count > 0 %}
   <div class="photo-grid">
-    {% for photo in image_photos %}
-    <figure class="photo">
-      <img src="{{ photo.path | relative_url }}" alt="{{ photo.name | replace: '-', ' ' | replace: '_', ' ' | split: '.' | first }}">
-    </figure>
+    {% for photo in photos %}
+      {% if photo.extname == '.jpg' or photo.extname == '.jpeg' or photo.extname == '.png' or photo.extname == '.gif' or photo.extname == '.webp' %}
+      <figure class="photo">
+        <img src="{{ photo.path | relative_url }}" alt="{{ photo.name | replace: '-', ' ' | replace: '_', ' ' | split: '.' | first }}">
+      </figure>
+      {% endif %}
     {% endfor %}
   </div>
   {% else %}
