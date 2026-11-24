@@ -197,3 +197,28 @@ a:hover { text-decoration: underline; }
   .post-title { font-size: 29px; }
   .header-inner { flex-wrap: wrap; }
 }
+
+/* Profile line row + social buttons */
+.profile-line-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.social-buttons { display: flex; gap: 8px; margin-left: auto; }
+.social-btn {
+  display: inline-block; font-size: 13px; font-weight: 700;
+  color: var(--blue); background: #fff;
+  border: 1.5px solid var(--blue); border-radius: 999px;
+  padding: 4px 14px;
+}
+.social-btn:hover { background: var(--blue-soft); text-decoration: none; }
+
+/* About paragraphs (about_text renders as separate <p>s) */
+.about-text p { margin: 0 0 10px; }
+.about-text p:last-child { margin-bottom: 0; }
+
+/* Projects */
+.project-list { list-style: none; margin: 0; padding: 0; }
+.project { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.project:last-child { border-bottom: none; }
+.project-title { font-size: 20px; font-weight: 800; margin: 0 0 4px; }
+.project-description { color: var(--dim); margin: 0; font-size: 15px; }

@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<section class="panel">
+  <h1 class="section-title section-title--page">Projects</h1>
+  <p class="section-intro">Things I've made and worked on.</p>
+
+  {% assign projects = site.data.profile.projects %}
+  {% if projects and projects.size > 0 %}
+  <ul class="project-list">
+    {% for project in projects %}
+    <li class="project">
+      <h2 class="project-title"><a href="{{ project.url }}" target="_blank" rel="noopener">{{ project.name }}</a></h2>
+      {% if project.description %}<p class="project-description">{{ project.description }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty-state">
+    <h2>No projects yet</h2>
+    <p>Projects will be added here soon.</p>
+  </div>
+  {% endif %}
+</section>

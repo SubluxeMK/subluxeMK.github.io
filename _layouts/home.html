@@ -9,11 +9,18 @@ layout: default
   </div>
   <div class="profile-info">
     <h1 class="profile-name">{{ p.display_name }}</h1>
-    {% if p.line_1 %}<p class="profile-line"><strong>{{ p.line_1 }}</strong></p>{% endif %}
+    <div class="profile-line-row">
+      {% if p.line_1 %}<p class="profile-line"><strong>{{ p.line_1 }}</strong></p>{% endif %}
+      {% if p.socials and p.socials.size > 0 %}
+      <div class="social-buttons">
+        {% for social in p.socials %}<a class="social-btn" href="{{ social.url }}" target="_blank" rel="noopener">{{ social.name }}</a>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
     {% if p.line_2 %}<p class="profile-line">{{ p.line_2 }}</p>{% endif %}
     <div class="profile-about" id="about">
       <h2 class="profile-about-title">About</h2>
-      <p class="about-text">{{ p.about_text }}</p>
+      <div class="about-text">{{ p.about_text | markdownify }}</div>
       <p class="about-site">This is my personal site — a place for my pictures, a little about me, and occasionally some writing. The writing lives in its own small section <a href="{{ '/blog/' | relative_url }}">here</a>, and my photos are <a href="{{ '/photos/' | relative_url }}">here</a>.</p>
     </div>
   </div>
@@ -22,7 +29,7 @@ layout: default
 <section class="grid-2{% unless p.currently and p.currently.size > 0 %} grid-2--single{% endunless %}">
   <div class="stack">
     <div class="info-box">
-      <p><span class="k">{{ p.box_1_title }} :</span> {{ p.box_1 }}</p>
+      <p><span class="k">{{ p.box_1_title }} :</span> {{ p.box_1 | newline_to_br }}</p>
     </div>
     <div class="info-box">
       <p><span class="k">{{ p.box_2_title }} :</span> {{ p.box_2 }}</p>

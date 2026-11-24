@@ -15,14 +15,31 @@ line_2: ""
 photo: "/assets/img/profile.png"
 photo_alt: "Profile picture"
 
+# Social buttons — shown at the right of the line under your name
+# in the profile card. Add or remove freely.
+socials:
+  - name: "Twitch"
+    url: "https://www.twitch.tv/subluxe"
+  - name: "Twitter/X"
+    url: "https://x.com/subluxemk"
+
 # The two little boxes on the landing page.
 box_1_title: "about !!"
-box_1: "Mechanical keyboard enthusiast. RuneScape and MapleStory."
+box_1: |-
+  From Vancouver, currently living abroad in Nagoya.
+  Maplestory: Subluxe (Bera)
+  Classic Maple: Subluxe (Windia)
+  OSRS: Subluxe
 box_2_title: "note !!"
 box_2: "How did you end up here?"
 
 # About section — shown directly on the landing page.
-about_text: "Subluxe — mechanical keyboard enthusiast. RuneScape and MapleStory."
+about_text: |-
+  Hello I'm Subluxe, I'm a mechanical keyboard enthusiast and former event organizer, originally from Vancouver but I'm based in Nagoya now.
+
+  I'm into various MMOs but I mainly play OSRS, MapleStory and Classic Maple.
+
+  I also do a bit of writing on the side, and have written for some small projects.
 basics:
   - label: "name / what to call me"
     value: "Subluxe"
@@ -44,3 +61,9 @@ picks_labels:
 
 # Links you want in the footer / about page. Add or remove freely.
 links: []
+
+# Projects — shown on the Projects page (/projects/). One entry per project:
+#   - name: "Project name"
+#     url: "https://example.com"
+#     description: "One line about it. (optional)"
+projects: []
