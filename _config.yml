@@ -17,8 +17,6 @@ nav:
     link: "/photos/"
   - name: "Writing"
     link: "/blog/"
-  - name: "About"
-    link: "/#about"
 
 # Comments via giscus (https://giscus.app). The widget only renders on posts
 # once repo_id and category_id are filled in. To finish setup: enable

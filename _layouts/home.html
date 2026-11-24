@@ -14,13 +14,6 @@ layout: default
     <div class="profile-about" id="about">
       <h2 class="profile-about-title">About</h2>
       <p class="about-text">{{ p.about_text }}</p>
-      <ul class="about-basics">
-        {% for item in p.basics %}
-          {% if item.value and item.value != "" %}
-          <li><span class="k">{{ item.label }}:</span> {{ item.value }}</li>
-          {% endif %}
-        {% endfor %}
-      </ul>
       <p class="about-site">This is my personal site — a place for my pictures, a little about me, and occasionally some writing. The writing lives in its own small section <a href="{{ '/blog/' | relative_url }}">here</a>, and my photos are <a href="{{ '/photos/' | relative_url }}">here</a>.</p>
     </div>
   </div>
