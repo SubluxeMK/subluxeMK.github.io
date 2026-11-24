@@ -59,6 +59,7 @@ a:hover { text-decoration: underline; }
   gap: 22px; margin-bottom: 22px; align-items: start;
 }
 .grid-2 .panel { margin-bottom: 0; }
+.grid-2--single { grid-template-columns: 1fr; }
 .stack { display: grid; gap: 14px; }
 
 /* Section titles — big blue with a blue rule, like the reference */

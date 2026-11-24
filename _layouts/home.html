@@ -11,8 +11,6 @@ layout: default
     <h1 class="profile-name">{{ p.display_name }}</h1>
     {% if p.line_1 %}<p class="profile-line"><strong>{{ p.line_1 }}</strong></p>{% endif %}
     {% if p.line_2 %}<p class="profile-line">{{ p.line_2 }}</p>{% endif %}
-    <p class="profile-likes"><span class="k">likes :</span> {{ p.likes }}</p>
-    <p class="profile-likes"><span class="k">dislikes :</span> {{ p.dislikes }}</p>
     <div class="btn-row">
       <a class="btn" href="{{ '/about/' | relative_url }}">About</a>
       <a class="btn" href="{{ '/photos/' | relative_url }}">Photos</a>
@@ -21,7 +19,7 @@ layout: default
   </div>
 </section>
 
-<section class="grid-2">
+<section class="grid-2{% unless p.currently and p.currently.size > 0 %} grid-2--single{% endunless %}">
   <div class="stack">
     <div class="info-box">
       <p><span class="k">{{ p.box_1_title }} :</span> {{ p.box_1 }}</p>
@@ -31,6 +29,7 @@ layout: default
     </div>
   </div>
 
+  {% if p.currently and p.currently.size > 0 %}
   <div class="panel currently-panel">
     <h2 class="section-title">Currently</h2>
     {% for item in p.currently %}
@@ -43,6 +42,7 @@ layout: default
     </div>
     {% endfor %}
   </div>
+  {% endif %}
 </section>
 
 <section class="panel picks-panel">
