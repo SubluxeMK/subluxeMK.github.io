@@ -116,6 +116,16 @@ a:hover { text-decoration: underline; }
 .activity-label { font-weight: 400; font-size: 13px; color: var(--dim); margin-left: 6px; }
 .activity-detail { margin: 2px 0 0; font-size: 14px; color: var(--ink); }
 
+/* About (on the landing page) */
+.about-text { font-size: 17px; margin: 0 0 14px; }
+.about-basics { list-style: none; margin: 0 0 14px; padding: 0; }
+.about-basics li {
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+.about-basics li:last-child { border-bottom: none; }
+.about-site { color: var(--dim); margin: 0; font-size: 15px; }
+
 /* Picks / photos */
 .picks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .pick { margin: 0; }

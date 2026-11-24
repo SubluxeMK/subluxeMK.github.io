@@ -12,7 +12,7 @@ layout: default
     {% if p.line_1 %}<p class="profile-line"><strong>{{ p.line_1 }}</strong></p>{% endif %}
     {% if p.line_2 %}<p class="profile-line">{{ p.line_2 }}</p>{% endif %}
     <div class="btn-row">
-      <a class="btn" href="{{ '/about/' | relative_url }}">About</a>
+      <a class="btn" href="#about">About</a>
       <a class="btn" href="{{ '/photos/' | relative_url }}">Photos</a>
       <a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">Writing</a>
     </div>
@@ -43,6 +43,19 @@ layout: default
     {% endfor %}
   </div>
   {% endif %}
+</section>
+
+<section class="panel about-panel" id="about">
+  <h2 class="section-title">About</h2>
+  <p class="about-text">{{ p.about_text }}</p>
+  <ul class="about-basics">
+    {% for item in p.basics %}
+      {% if item.value and item.value != "" %}
+      <li><span class="k">{{ item.label }}:</span> {{ item.value }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <p class="about-site">This is my personal site — a place for my pictures, a little about me, and occasionally some writing. The writing lives in its own small section <a href="{{ '/blog/' | relative_url }}">here</a>, and my photos are <a href="{{ '/photos/' | relative_url }}">here</a>.</p>
 </section>
 
 <section class="panel picks-panel">

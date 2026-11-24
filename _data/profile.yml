@@ -21,6 +21,18 @@ box_1: "Mechanical keyboard enthusiast. RuneScape and MapleStory."
 box_2_title: "note !!"
 box_2: "How did you end up here?"
 
+# About section — shown directly on the landing page.
+about_text: "Subluxe — mechanical keyboard enthusiast. RuneScape and MapleStory."
+basics:
+  - label: "name / what to call me"
+    value: "Subluxe"
+  - label: "pronouns"
+    value: "He / Him"
+  - label: "based in"
+    value: "Vancouver / Nagoya"
+  - label: "what I do"
+    value: ""
+
 # "Currently" — hidden for now (no entries filled in yet).
 currently: []
 
