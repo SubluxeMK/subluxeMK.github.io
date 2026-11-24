@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<section class="panel">
+  <h1 class="section-title section-title--page">Photos</h1>
+  <p class="section-intro">Pictures I've taken and things I like looking at.</p>
+
+  {% assign photos = site.static_files | where_exp: "f", "f.path contains '/assets/img/photos/'" %}
+  {% assign image_photos = photos | where_exp: "f", "f.extname == '.jpg' or f.extname == '.jpeg' or f.extname == '.png' or f.extname == '.gif' or f.extname == '.webp'" %}
+  {% if image_photos.size > 0 %}
+  <div class="photo-grid">
+    {% for photo in image_photos %}
+    <figure class="photo">
+      <img src="{{ photo.path | relative_url }}" alt="{{ photo.name | replace: '-', ' ' | replace: '_', ' ' | split: '.' | first }}">
+    </figure>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <h2>No photos yet</h2>
+    <p>Photos added to <code>assets/img/photos/</code> in the repo will appear here automatically.</p>
+  </div>
+  {% endif %}
+</section>

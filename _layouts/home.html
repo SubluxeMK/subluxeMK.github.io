@@ -1,34 +1,79 @@
 ---
 layout: default
 ---
+{% assign p = site.data.profile %}
 
-<h1 class="feed-title">Latest</h1>
+<section class="panel profile-panel">
+  <div class="profile-photo">
+    <img src="{{ p.photo | relative_url }}" alt="{{ p.photo_alt | escape }}">
+  </div>
+  <div class="profile-info">
+    <h1 class="profile-name">{{ p.display_name }}</h1>
+    {% if p.line_1 %}<p class="profile-line"><strong>{{ p.line_1 }}</strong></p>{% endif %}
+    {% if p.line_2 %}<p class="profile-line">{{ p.line_2 }}</p>{% endif %}
+    <p class="profile-likes"><span class="k">likes :</span> {{ p.likes }}</p>
+    <p class="profile-likes"><span class="k">dislikes :</span> {{ p.dislikes }}</p>
+    <div class="btn-row">
+      <a class="btn" href="{{ '/about/' | relative_url }}">About</a>
+      <a class="btn" href="{{ '/photos/' | relative_url }}">Photos</a>
+      <a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">Writing</a>
+    </div>
+  </div>
+</section>
 
-{% if site.posts.size > 0 %}
-<div class="feed">
-  {% for post in site.posts %}
-    {% assign words = post.content | strip_html | number_of_words %}
-    {% assign minutes = words | divided_by: 200 %}
-    {% if minutes < 1 %}{% assign minutes = 1 %}{% endif %}
-    <article class="story" data-title="{{ post.title | downcase | escape }}" data-text="{{ post.excerpt | strip_html | downcase | escape }}">
-      <p class="byline">
-        <img class="byline-avatar" src="{{ site.author.avatar | relative_url }}" alt="">
-        <span>Justin Mackey · {{ post.date | date: "%b %-d, %Y" }} · {{ minutes }} min read</span>
-      </p>
-      <h2 class="story-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-      <p class="story-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
-      {% if post.tags and post.tags.size > 0 %}
-      <p class="story-tags">
-        {% for tag in post.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
-      </p>
-      {% endif %}
+<section class="grid-2">
+  <div class="stack">
+    <div class="info-box">
+      <p><span class="k">{{ p.box_1_title }} :</span> {{ p.box_1 }}</p>
+    </div>
+    <div class="info-box">
+      <p><span class="k">{{ p.box_2_title }} :</span> {{ p.box_2 }}</p>
+    </div>
+  </div>
+
+  <div class="panel currently-panel">
+    <h2 class="section-title">Currently</h2>
+    {% for item in p.currently %}
+    <div class="activity">
+      <span class="disc" aria-hidden="true"></span>
+      <div>
+        <p class="activity-title">{{ item.title }} <span class="activity-label">{{ item.label }}</span></p>
+        <p class="activity-detail">{{ item.detail }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="panel picks-panel">
+  <h2 class="section-title">My picks</h2>
+  {% assign photos = site.static_files | where_exp: "f", "f.path contains '/assets/img/photos/'" %}
+  <div class="picks-grid">
+    {% for i in (0..2) %}
+      {% assign photo = photos[i] %}
+      <figure class="pick">
+        {% if photo %}
+          <a href="{{ '/photos/' | relative_url }}"><img src="{{ photo.path | relative_url }}" alt=""></a>
+        {% else %}
+          <a class="pick-placeholder" href="{{ '/photos/' | relative_url }}"><span>add a photo</span></a>
+        {% endif %}
+        <figcaption>{{ p.picks_labels[i] }}</figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="panel writing-preview">
+  <h2 class="section-title">Writing <a class="section-more" href="{{ '/blog/' | relative_url }}">all writing →</a></h2>
+  {% if site.posts.size > 0 %}
+    {% for post in site.posts limit: 3 %}
+    <article class="story story--small">
+      <p class="story-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
+      <h3 class="story-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      <p class="story-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
     </article>
-  {% endfor %}
-</div>
-<p class="no-results" hidden>No stories match your search.</p>
-{% else %}
-<div class="empty-state">
-  <h2>No stories yet</h2>
-  <p>Nothing published here yet — new writing is on its way.</p>
-</div>
-{% endif %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-note">Nothing here yet — writing will show up here when it's posted. <a href="{{ '/blog/' | relative_url }}">Visit the writing section →</a></p>
+  {% endif %}
+</section>

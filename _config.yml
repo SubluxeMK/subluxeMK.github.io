@@ -1,10 +1,7 @@
 title: "Subluxe"
-description: "Subluxe is Justin Mackey's personal writing and blog site — essays and notes on everyday life, ideas, and whatever's on his mind."
+description: "A personal site — a little about me, my pictures, and my writing."
 baseurl: ""
 url: "https://subluxe.ca"
-author:
-  name: "Justin Mackey"
-  avatar: "/assets/images/muse-artwork.jpg"
 
 markdown: kramdown
 theme: null
@@ -16,10 +13,12 @@ plugins:
 nav:
   - name: "Home"
     link: "/"
-  - name: "Blog"
-    link: "/blog"
+  - name: "Photos"
+    link: "/photos/"
+  - name: "Writing"
+    link: "/blog/"
   - name: "About"
-    link: "/about"
+    link: "/about/"
 
 # Comments via giscus (https://giscus.app). The widget only renders on posts
 # once repo_id and category_id are filled in. To finish setup: enable

@@ -1,0 +1,50 @@
+# ============================================================
+#  YOUR PROFILE — fill this one file in and the whole site updates.
+#  Anything in [brackets] is a placeholder for you to replace.
+#  Leave a line blank (just "") to hide it.
+# ============================================================
+
+# The big name at the top of the landing page.
+display_name: "subluxe !"
+
+# Small lines under your name. e.g. "he / him", "based in ___", a tagline.
+line_1: "[ pronouns ] · [ where you're based ]"
+line_2: "[ one short line about you ]"
+
+# Your profile picture. For now this uses the artwork already in the repo.
+# Replace it with your own photo at assets/img/profile.jpg and change this path.
+photo: "/assets/img/profile.png"
+photo_alt: "Profile picture"
+
+likes: "[ likes — a few things you love, separated by dots ]"
+dislikes: "[ dislikes — a few things you'd rather avoid ]"
+
+# The two little boxes on the landing page.
+box_1_title: "about !!"
+box_1: "[ a few lines about you — who you are, what you do, what this site is for ]"
+box_2_title: "note !!"
+box_2: "[ a short note for visitors — anything you want people to know before they look around ]"
+
+# "Currently" — what's on rotation right now. Up to 3-4 entries work best.
+currently:
+  - label: "listening"
+    title: "[ song / artist ]"
+    detail: "[ album · a line about it ]"
+  - label: "playing"
+    title: "[ game ]"
+    detail: "[ platform · a line about it ]"
+  - label: "watching / reading"
+    title: "[ show / film / book ]"
+    detail: "[ a line about it ]"
+
+# Labels under the three picks photos on the landing page.
+picks_labels:
+  - "favourites"
+  - "lately"
+  - "???"
+
+# Links you want in the footer / about page. Add or remove freely.
+# links:
+#   - name: "Instagram"
+#     url: "https://instagram.com/yourhandle"
+links: []

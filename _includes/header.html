@@ -1,14 +1,10 @@
 <header class="site-header">
   <div class="header-inner">
-    <a class="wordmark" href="{{ '/' | relative_url }}">Subluxe</a>
-    <div class="header-search">
-      <input type="search" id="site-search" placeholder="Search" aria-label="Search stories" autocomplete="off">
-    </div>
+    <a class="wordmark" href="{{ '/' | relative_url }}">subluxe</a>
     <nav class="header-nav">
       {% for item in site.nav %}
-        <a href="{{ item.link | relative_url }}">{{ item.name }}</a>
+        <a href="{{ item.link | relative_url }}"{% if page.url == item.link %} class="active"{% endif %}>{{ item.name }}</a>
       {% endfor %}
-      <img class="header-avatar" src="{{ site.author.avatar | relative_url }}" alt="Artwork chosen by Justin Mackey for Muse">
     </nav>
   </div>
 </header>

@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<section class="panel">
+  <h1 class="section-title section-title--page">Writing</h1>
+  <p class="section-intro">Occasional posts and notes. This is a small corner of the site, not the whole thing.</p>
+
+  {% if site.posts.size > 0 %}
+  <div class="feed">
+    {% for post in site.posts %}
+      {% assign words = post.content | strip_html | number_of_words %}
+      {% assign minutes = words | divided_by: 200 %}
+      {% if minutes < 1 %}{% assign minutes = 1 %}{% endif %}
+      <article class="story">
+        <p class="story-meta">{{ post.date | date: "%b %-d, %Y" }} · {{ minutes }} min read</p>
+        <h2 class="story-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        <p class="story-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+        {% if post.tags and post.tags.size > 0 %}
+        <p class="story-tags">{% for tag in post.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <h2>No posts yet</h2>
+    <p>Nothing published here yet — check back later.</p>
+  </div>
+  {% endif %}
+</section>

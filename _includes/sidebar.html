@@ -1,30 +1,8 @@
+{% comment %} Sidebar is not used by the current profile layout. Kept generic. {% endcomment %}
 <aside class="sidebar">
   <div class="about-card">
-    <img class="about-art" src="{{ site.author.avatar | relative_url }}" alt="Artwork chosen by Justin Mackey for Muse">
     <h3>About</h3>
-    <p>Subluxe is Justin Mackey's corner of the internet — essays and notes on everyday life, ideas, and whatever's on his mind.</p>
-    <p class="about-meta">From Canada 🇨🇦, living in Japan 🇯🇵.<br>日本語 ・ ENG</p>
-    <p><a href="{{ '/about' | relative_url }}">More about Justin →</a></p>
-  </div>
-
-  {% assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
-  {% assign visible_tags = all_tags | where_exp: 't', 't != ""' %}
-  {% if visible_tags.size > 0 %}
-  <div class="sidebar-block">
-    <h3>Topics</h3>
-    <div class="tag-list">
-      {% for tag in visible_tags %}
-        <span class="tag-pill">{{ tag }}</span>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
-
-  <div class="sidebar-block">
-    <h3>Links</h3>
-    <div class="links">
-      <a href="https://github.com/SubluxeMK" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://x.com/subluxemk" target="_blank" rel="noopener">Twitter</a>
-    </div>
+    <p>{{ site.description }}</p>
+    <p><a href="{{ '/about/' | relative_url }}">More →</a></p>
   </div>
 </aside>

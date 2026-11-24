@@ -1,14 +1,37 @@
 ---
 layout: page
 title: About
+permalink: /about/
 ---
 
-<img class="about-art" src="/assets/images/muse-artwork.jpg" alt="Artwork chosen by Justin Mackey for Muse">
+<!-- Fill this page in — everything in [brackets] is yours to replace.
+     The short version of most of this also lives in _data/profile.yml,
+     which is what the landing page uses. -->
 
-Subluxe is Justin Mackey's corner of the internet — essays and notes on everyday life, ideas, and whatever's on his mind.
+## hi !!
 
-Justin is from Canada 🇨🇦 and lives in Japan 🇯🇵, where he works as an ALT in Kuwana. He writes here in English and Japanese (日本語・ENG).
+[ A paragraph about you — who you are, where you're from / where you live now,
+whatever you're comfortable sharing publicly. ]
 
-Interests include RuneScape, MapleStory, and mechanical keyboards.
+## basics
 
-The artwork above is the piece Justin chose for Muse, his AI assistant — it lives here as the site's author image.
+- **name / what to call me:** [ ]
+- **pronouns:** [ ]
+- **based in:** [ ]
+- **what I do:** [ ]
+
+## likes / dislikes
+
+**likes:** [ ]
+
+**dislikes:** [ ]
+
+## this site
+
+This is my personal site — a place for my pictures, a little about me, and
+occasionally some writing. The writing lives in its own small section
+[here](/blog/), and my photos are [here](/photos/).
+
+## links
+
+[ Add any links you want people to find you at — or delete this section. ]

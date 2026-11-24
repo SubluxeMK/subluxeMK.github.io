@@ -2,19 +2,16 @@
 layout: default
 ---
 
-<article class="post">
+<article class="panel post">
   <h1 class="post-title">{{ page.title }}</h1>
   {% assign words = content | strip_html | number_of_words %}
   {% assign minutes = words | divided_by: 200 %}
   {% if minutes < 1 %}{% assign minutes = 1 %}{% endif %}
-  <p class="byline byline--post">
-    <img class="byline-avatar" src="{{ site.author.avatar | relative_url }}" alt="">
-    <span>Justin Mackey · {{ page.date | date: "%B %-d, %Y" }} · {{ minutes }} min read</span>
-  </p>
-
+  <p class="story-meta story-meta--post">{{ page.date | date: "%B %-d, %Y" }} · {{ minutes }} min read</p>
   <div class="post-content">
     {{ content }}
   </div>
+  <p class="post-back"><a href="{{ '/blog/' | relative_url }}">← all writing</a></p>
 </article>
 
 {% include comments.html %}
