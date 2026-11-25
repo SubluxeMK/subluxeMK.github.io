@@ -65,4 +65,7 @@ links: []
 #   - name: "Project name"
 #     url: "https://example.com"
 #     description: "One line about it. (optional)"
-projects: []
+projects:
+  - name: "The Buccaneer Bible"
+    url: "https://docs.google.com/document/d/1M1jTSVxLkmXLbt1Dpwh9yP3D7yO7SIL5FWD6HCFweAo/edit?tab=t.0#heading=h.dgfhtfgat0ew"
+    description: "MapleStory Buccaneer guide — currently updating."
