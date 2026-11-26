@@ -1032,6 +1032,10 @@
           if(e.key === "Escape"){ closeStartMenu(); closeDialog.classList.remove("open"); }
         });
 
+        /* ---- open the section named in the URL hash (e.g. /#writing from an article) ---- */
+        var hashSection = (location.hash || "").replace("#", "");
+        if (sections[hashSection]) { goTo(hashSection); }
+
         /* ---- drag the window by its title bar (desktop widths) ---- */
         var titlebar = document.getElementById("titlebar");
         var drag = null;
