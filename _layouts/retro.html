@@ -413,6 +413,9 @@
         <button class="desk-icon" data-goto="writing" type="button">
           <span class="glyph" aria-hidden="true">✎</span><span class="label">Writing</span>
         </button>
+        <button class="desk-icon" data-goto="journal" type="button">
+          <span class="glyph" aria-hidden="true">🔒</span><span class="label">Journal</span>
+        </button>
         <button class="desk-icon" data-goto="projects" type="button">
           <span class="glyph" aria-hidden="true">▣</span><span class="label">Projects</span>
         </button>
@@ -438,6 +441,7 @@
             <button class="menu-btn active" data-goto="home" type="button"><u>H</u>ome</button>
             <button class="menu-btn" data-goto="photos" type="button"><u>P</u>hotos</button>
             <button class="menu-btn" data-goto="writing" type="button"><u>W</u>riting</button>
+            <button class="menu-btn" data-goto="journal" type="button"><u>J</u>ournal</button>
             <button class="menu-btn" data-goto="projects" type="button">P<u>r</u>ojects</button>
           </nav>
 
@@ -807,6 +811,39 @@
             </div>
 
             <!-- ========== PROJECTS ========== -->
+            <div class="view" id="view-journal">
+              <div class="explorer-head">
+                <h2>Journal</h2>
+                <p>C:\subluxe\journal — private entries, kept behind a password.</p>
+              </div>
+              <div id="journalGate" class="sunken" style="background:#fff;padding:22px;text-align:center;">
+                <div style="font-size:30px;" aria-hidden="true">🔒</div>
+                <p style="margin:10px 0 14px;">This folder is password protected.</p>
+                <form id="journalForm" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+                  <input id="journalPw" type="password" autocomplete="current-password" placeholder="Password" aria-label="Journal password" style="padding:6px 8px;font:inherit;min-width:200px;" />
+                  <button class="btn95" type="submit" style="padding:5px 18px;">Unlock</button>
+                </form>
+                <p id="journalErr" style="color:#b00020;min-height:1.2em;margin:10px 0 0;"></p>
+              </div>
+              <div id="journalContent" hidden>
+                <div class="sunken" style="background:#fff;">
+                  <table class="list-table">
+                    <thead>
+                      <tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Status</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Your journal index</td>
+                        <td>Folder</td>
+                        <td>Private entries you publish will be listed here, newest first — each row opens the entry.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="empty-note" style="margin-top:14px;">Your private corner of the site — same file-list look as Writing, but nothing here is visible until the password is entered.</p>
+              </div>
+            </div>
+
             <div class="view" id="view-projects">
               <div class="explorer-head">
                 <h2>Projects</h2>
@@ -852,6 +889,7 @@
           <li><button type="button" data-goto="home">⌂&nbsp; Home</button></li>
           <li><button type="button" data-goto="photos">▦&nbsp; Photos</button></li>
           <li><button type="button" data-goto="writing">✎&nbsp; Writing</button></li>
+          <li><button type="button" data-goto="journal">🔒&nbsp; Journal</button></li>
           <li><button type="button" data-goto="projects">▣&nbsp; Projects</button></li>
           <li class="sep" aria-hidden="true"></li>
           <li><a href="https://www.twitch.tv/subluxe" target="_blank" rel="noopener">▶&nbsp; Twitch — twitch.tv/subluxe</a></li>
@@ -878,6 +916,7 @@
           home:     { title:"Subluxe — Home",     addr:"C:\\subluxe\\home",     status:"Home — profile, about, games and music", count:"4 object(s)",  task:"Home" },
           photos:   { title:"Subluxe — Photos",   addr:"C:\\subluxe\\photos",   status:"Photos — picture grid",           count:"40 object(s)",  task:"Photos" },
           writing:  { title:"Subluxe — Writing",  addr:"C:\\subluxe\\writing",  status:"Writing — post index",            count:"1 object(s)",  task:"Writing" },
+          journal:  { title:"Subluxe \u2014 Journal",  addr:"C:\\subluxe\\journal",  status:"Journal \u2014 private, password required", count:"0 object(s)",  task:"Journal" },
           projects: { title:"Subluxe — Projects", addr:"C:\\subluxe\\projects", status:"Projects — works and links",      count:"1 object(s)",  task:"Projects" }
         };
         var current = "home";
@@ -1022,6 +1061,32 @@
         }
         tick();
         setInterval(tick, 15000);
+      })();
+    </script>
+    <script>
+      (function(){
+        var JOURNAL_HASH = "PENDING-SETUP";
+        var gate = document.getElementById("journalGate");
+        var content = document.getElementById("journalContent");
+        var form = document.getElementById("journalForm");
+        var pw = document.getElementById("journalPw");
+        var err = document.getElementById("journalErr");
+        function unlock(){
+          gate.hidden = true;
+          content.hidden = false;
+          try { sessionStorage.setItem("journalUnlocked", "1"); } catch(e){}
+        }
+        try { if (sessionStorage.getItem("journalUnlocked") === "1") unlock(); } catch(e){}
+        form.addEventListener("submit", function(ev){
+          ev.preventDefault();
+          var val = pw.value || "";
+          if (!window.crypto || !crypto.subtle) { err.textContent = "This browser cannot verify the password."; return; }
+          crypto.subtle.digest("SHA-256", new TextEncoder().encode(val)).then(function(buf){
+            var hex = Array.prototype.map.call(new Uint8Array(buf), function(b){ return ("0"+b.toString(16)).slice(-2); }).join("");
+            if (hex === JOURNAL_HASH) { err.textContent = ""; unlock(); }
+            else { err.textContent = "Incorrect password \u2014 try again."; pw.select(); }
+          });
+        });
       })();
     </script>
   </body>
