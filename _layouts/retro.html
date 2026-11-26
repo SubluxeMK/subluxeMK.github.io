@@ -831,7 +831,7 @@
                     <thead>
                       <tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Status</th></tr>
                     </thead>
-                    <tbody>
+                    <tbody id="journalRows">
                       <tr>
                         <td>Your journal index</td>
                         <td>Folder</td>
@@ -839,6 +839,11 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div id="journalReader" class="sunken" style="background:#fff;padding:18px;margin-top:14px;" hidden>
+                  <h3 id="jrTitle" style="margin:0 0 4px;"></h3>
+                  <p id="jrDate" style="margin:0 0 12px;color:#555;"></p>
+                  <div id="jrBody" style="line-height:1.6;"></div>
                 </div>
                 <p class="empty-note" style="margin-top:14px;">Your private corner of the site — same file-list look as Writing, but nothing here is visible until the password is entered.</p>
               </div>
@@ -1066,25 +1071,83 @@
     <script>
       (function(){
         var JOURNAL_HASH = "892bf5784a8a2b6ef0d7c2916c60d2385513943b5e3b910750be64d1be282ead";
+        var JOURNAL_KDF_SALT = "6nQz80oD5ZnuyCa3VWH8hQ==";
+        var JOURNAL_ENTRIES = [];
         var gate = document.getElementById("journalGate");
         var content = document.getElementById("journalContent");
         var form = document.getElementById("journalForm");
         var pw = document.getElementById("journalPw");
         var err = document.getElementById("journalErr");
-        function unlock(){
+        var key = null;
+
+        function b64ToBytes(s){ return Uint8Array.from(atob(s), function(c){ return c.charCodeAt(0); }); }
+        function showContent(){
           gate.hidden = true;
           content.hidden = false;
           try { sessionStorage.setItem("journalUnlocked", "1"); } catch(e){}
         }
-        try { if (sessionStorage.getItem("journalUnlocked") === "1") unlock(); } catch(e){}
+        function deriveKey(password){
+          var saltBytes = b64ToBytes(JOURNAL_KDF_SALT);
+          return crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"])
+            .then(function(base){
+              return crypto.subtle.deriveKey({ name:"PBKDF2", salt:saltBytes, iterations:250000, hash:"SHA-256" }, base, { name:"AES-GCM", length:256 }, true, ["decrypt"]);
+            });
+        }
+        function decryptEntry(e){
+          return crypto.subtle.decrypt({ name:"AES-GCM", iv:b64ToBytes(e.iv) }, key, b64ToBytes(e.data))
+            .then(function(buf){ return JSON.parse(new TextDecoder().decode(buf)); });
+        }
+        function showEntry(entry){
+          document.getElementById("jrTitle").textContent = entry.title || "Untitled";
+          document.getElementById("jrDate").textContent = entry.date || "";
+          document.getElementById("jrBody").innerHTML = entry.bodyHtml || "";
+          document.getElementById("journalReader").hidden = false;
+        }
+        function renderEntries(){
+          if (!key || !JOURNAL_ENTRIES.length) return;
+          Promise.all(JOURNAL_ENTRIES.map(decryptEntry)).then(function(entries){
+            entries.sort(function(a,b){ return (b.date||"").localeCompare(a.date||""); });
+            var tbody = document.getElementById("journalRows");
+            tbody.innerHTML = "";
+            entries.forEach(function(entry){
+              var tr = document.createElement("tr");
+              var td1 = document.createElement("td");
+              var link = document.createElement("a");
+              link.href = "#"; link.textContent = entry.title || "Untitled";
+              link.addEventListener("click", function(ev){ ev.preventDefault(); showEntry(entry); });
+              td1.appendChild(link);
+              var td2 = document.createElement("td"); td2.textContent = "Journal entry";
+              var td3 = document.createElement("td"); td3.textContent = entry.date || "";
+              tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+              tbody.appendChild(tr);
+            });
+          }).catch(function(){ /* wrong key: leave the placeholder index in place */ });
+        }
+        function unlockWithKey(k){
+          key = k;
+          crypto.subtle.exportKey("jwk", k).then(function(jwk){
+            try { sessionStorage.setItem("journalKey", JSON.stringify(jwk)); } catch(e){}
+          }).catch(function(){});
+          showContent();
+          renderEntries();
+        }
+        try {
+          var saved = sessionStorage.getItem("journalKey");
+          if (saved && sessionStorage.getItem("journalUnlocked") === "1") {
+            crypto.subtle.importKey("jwk", JSON.parse(saved), { name:"AES-GCM", length:256 }, true, ["decrypt"])
+              .then(function(k){ key = k; showContent(); renderEntries(); })
+              .catch(function(){});
+          }
+        } catch(e){}
         form.addEventListener("submit", function(ev){
           ev.preventDefault();
           var val = pw.value || "";
           if (!window.crypto || !crypto.subtle) { err.textContent = "This browser cannot verify the password."; return; }
           crypto.subtle.digest("SHA-256", new TextEncoder().encode(val)).then(function(buf){
             var hex = Array.prototype.map.call(new Uint8Array(buf), function(b){ return ("0"+b.toString(16)).slice(-2); }).join("");
-            if (hex === JOURNAL_HASH) { err.textContent = ""; unlock(); }
-            else { err.textContent = "Incorrect password \u2014 try again."; pw.select(); }
+            if (hex !== JOURNAL_HASH) { err.textContent = "Incorrect password \u2014 try again."; pw.select(); return; }
+            err.textContent = "";
+            deriveKey(val).then(unlockWithKey).catch(function(){ showContent(); });
           });
         });
       })();
